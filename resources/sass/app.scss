@@ -12,3 +12,18 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+
+.entries {
+  padding: 10px;
+  .entry {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    .head {
+      font-size: 0.8rem;
+    }
+    .content {
+      font-size: 1.2rem;
+    }
+  }
+}
