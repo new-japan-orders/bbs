@@ -15,5 +15,7 @@ Route::get('/', function () {
     return view('threads/index');
 });
 
-Route::view('/threads', 'threads/index')->name('threads');
-Route::view('/threads/show', 'threads/show')->name('threads.show');
+// Route::view('/threads', 'threads/index')->name('threads');
+// Route::view('/threads/show', 'threads/show')->name('threads.show');
+
+Route::resource('threads', 'ThreadsController');
