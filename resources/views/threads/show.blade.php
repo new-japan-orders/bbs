@@ -61,5 +61,22 @@
             </div>
         </div>
     </div>
+    <div class="jumbotron">
+        <form>
+            <div class="form-group">
+                <label for="name">投稿者名</label>
+                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="匿名可">
+            </div>
+            <div class="form-group">
+                <label for="content">投稿内容</label>
+                <textarea class="form-control" id="content" placeholder="投稿内容" rows="5"></textarea>
+            </div>
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">投稿する</button>
+            </div>
+        </form>
+    </div> 
+
 </div>
+
 @endsection
