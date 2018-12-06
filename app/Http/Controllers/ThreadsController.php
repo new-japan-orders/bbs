@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\Entry;
+use App\Http\Requests\ThreadRequest;
+use App\Http\Requests\EntryRequest;
 use Illuminate\Http\Request;
 
 class ThreadsController extends Controller
@@ -14,9 +17,8 @@ class ThreadsController extends Controller
      */
     public function index()
     {
-        //
-
-        return view('threads.index');
+        $threads = Thread::orderBy('created_at', 'desc')->paginate(50);
+        return view('threads.index', ['threads' => $threads]);
     }
 
     /**
@@ -35,9 +37,20 @@ class ThreadsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ThreadRequest $request)
     {
-        //
+        $input = $request->input();
+        Thread::create($input);
+
+        return redirect()->route('threads.index');
+    }
+
+    public function storeEntry(EntryRequest $request)
+    {
+        $input = $request->input();
+        $entry = Entry::create($input);
+
+        return redirect()->route('threads.show', ['thread' => $entry->thread]);
     }
 
     /**
@@ -48,7 +61,7 @@ class ThreadsController extends Controller
      */
     public function show(Thread $thread)
     {
-        //
+        return view('threads.show', ['thread' => $thread]);
     }
 
     /**

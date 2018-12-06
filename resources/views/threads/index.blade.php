@@ -2,20 +2,34 @@
 
 @section ('content')
 <div class="jumbotron">
-        <form>
-            <div class="form-group">
-                <label for="name">投稿者名</label>
-                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="匿名可">
-            </div>
-            <div class="form-group">
-                <label for="content">スレッドの内容</label>
-                <textarea class="form-control" id="content" placeholder="スレッドの内容" rows="5"></textarea>
-            </div>
-            <div class="text-right">
-                <button type="submit" class="btn btn-primary">スレッドを作成する</button>
-            </div>
-        </form>
-    </div> 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="validation-error">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    {{ Form::open(['route' => 'threads.store', 'method' => 'post'] )}}
+        <div class="form-group">
+            <label for="name">投稿者名</label>
+            {{ Form::text('name', old('name'), ['id' => 'name', 'class' => "form-control", 'aria-describedby' => "name", 'placeholder' => "匿名可"]) }}
+        </div>
+        <div class="form-group">
+            <label for="title">スレッドタイトル</label>
+            {{ Form::text('title', old('title'), ['id' => 'title', 'class' => "form-control", 'aria-describedby' => "title", 'placeholder' => "スレッドタイトル"]) }}
+
+        </div>
+        <div class="form-group">
+            <label for="content">スレッドの内容</label>
+            {{ Form::textarea('content', old('content'), ['id' => 'content', 'class' => "form-control", 'rows' => "5", 'placeholder' => "スレッドの内容"])}}
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">スレッドを作成する</button>
+        </div>
+    {{ Form::close() }}
+</div> 
 <table class="table table-striped">
     <thead>
         <tr>
@@ -23,36 +37,18 @@
         </tr>
     </thead>
     <tbody>
+        @foreach ($threads as $thread)
         <tr>
             <td>
-                <a href="/threads/show">
-                    ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+                <a href="{{ route('threads.show', ['thread' => $thread]) }}">
+                    {{ $thread->title }}
                 </a>
             </td>
         </tr>
-        <tr>
-            <td>
-                <a href="/threads/show">
-                    Mあああark
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="/threads/show">
-                    MaMifewa
-                </a>
-            </td>
-        </tr>
+        @endforeach
     </tbody>
 </table>
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-</nav>    
+
+{{ $threads->links() }}
+
 @endsection

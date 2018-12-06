@@ -19,3 +19,4 @@ Route::get('/', function () {
 // Route::view('/threads/show', 'threads/show')->name('threads.show');
 
 Route::resource('threads', 'ThreadsController');
+Route::post('threads/storeEntry', 'ThreadsController@storeEntry')->name("entries.store");
