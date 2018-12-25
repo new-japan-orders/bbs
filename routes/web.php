@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Route::resource('threads', 'ThreadsController');
 Route::post('threads/storeEntry', 'ThreadsController@storeEntry')->name("entries.store");
+Route::post('threads/destroyEntry/{id}', 'ThreadsController@destroyEntry')->name("entries.destroy");
 
 Auth::routes();
 

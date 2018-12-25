@@ -7,9 +7,15 @@ use App\Entry;
 use App\Http\Requests\ThreadRequest;
 use App\Http\Requests\EntryRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ThreadsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->only(['destroyEntry']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,6 +46,11 @@ class ThreadsController extends Controller
     public function store(ThreadRequest $request)
     {
         $input = $request->input();
+
+        if (Auth::check()) {
+            $input['user_id'] = Auth::id();
+            $input['name'] = null;
+        }
         Thread::create($input);
 
         return redirect()->route('threads.index');
@@ -48,7 +59,24 @@ class ThreadsController extends Controller
     public function storeEntry(EntryRequest $request)
     {
         $input = $request->input();
+
+        if (Auth::check()) {
+            $input['user_id'] = Auth::id();
+            $input['name'] = null;
+        }
+
         $entry = Entry::create($input);
+
+        return redirect()->route('threads.show', ['thread' => $entry->thread]);
+    }
+
+    public function destroyEntry($id)
+    {
+        $entry = Entry::where('id', $id)
+                      ->where('user_id', Auth::id())
+                      ->firstOrFail();
+
+        $entry->delete();
 
         return redirect()->route('threads.show', ['thread' => $entry->thread]);
     }

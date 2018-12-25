@@ -14,7 +14,11 @@
     {{ Form::open(['route' => 'threads.store', 'method' => 'post'] )}}
         <div class="form-group">
             <label for="name">投稿者名</label>
-            {{ Form::text('name', old('name'), ['id' => 'name', 'class' => "form-control", 'aria-describedby' => "name", 'placeholder' => "匿名可"]) }}
+            @auth
+                <p>{{ Auth::user()->name }}</p>
+            @else
+                {{ Form::text('name', old('name'), ['id' => 'name', 'class' => "form-control", 'aria-describedby' => "name", 'placeholder' => "匿名可"]) }}
+            @endauth
         </div>
         <div class="form-group">
             <label for="title">スレッドタイトル</label>

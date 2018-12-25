@@ -11,6 +11,7 @@ class Entry extends Model
     ];
 
     protected $fillable = [
+        'user_id',
         'thread_id',
         'name',
         'content',
@@ -19,5 +20,10 @@ class Entry extends Model
     public function thread()
     {
         return $this->belongsTo('App\Thread');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

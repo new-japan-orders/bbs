@@ -4,7 +4,17 @@
 
 <div class="jumbotron">
     <h1 class="display-4">{{$thread->title}}</h1>
-    <p>投稿者名：{{$thread->name ?? ''}}　投稿日時：{{ $thread->created_at }}</p>
+    <p>
+        投稿者名：
+        @isset ($thread->user_id)
+            {{ $thread->user->name }}
+        @else
+            {{ $thread->name ?? '' }}
+        @endif
+    </p>
+    <p>
+        投稿日時：{{ $thread->created_at }}
+    </p>
 <p class="lead">{{$thread->content}}</p>
 </div>
 <div class="entries">
@@ -12,10 +22,20 @@
         <div class="entry">
             <div class="row head">
                 <div class="col-md-4 col-sm-4">   
-                    投稿者名：{{ $entry->name ?? '' }}
+                    投稿者名：
+                    @isset ($entry->user_id)
+                        {{ $entry->user->name }}
+                    @else
+                        {{ $entry->name ?? '' }}
+                    @endif
                 </div>
                 <div class="col-md-4 col-sm-4">   
                     投稿日時：{{ $entry->created_at }}
+                </div>
+                <div class="col-md-4 col-sm-4">   
+                    {{ Form::open(['url' => route('entries.destroy', ['id' => $entry->id]), 'method' => 'post'] )}}
+                        <button type="submit" class="btn btn-primary">削除</button>
+                    {{ Form::close()}}
                 </div>
             </div>
             <div class="row content">
@@ -40,7 +60,11 @@
             {{ Form::hidden('thread_id', $thread->id) }}
             <div class="form-group">
                 <label for="name">投稿者名</label>
-                {{ Form::text('name', old('name'), ['id' => 'name', 'class' => "form-control", 'aria-describedby' => "name", 'placeholder' => "匿名可"]) }}
+                @auth
+                    <p>{{ Auth::user()->name }}</p>
+                @else
+                    {{ Form::text('name', old('name'), ['id' => 'name', 'class' => "form-control", 'aria-describedby' => "name", 'placeholder' => "匿名可"]) }}
+                @endauth
             </div>
             <div class="form-group">
                 <label for="content">投稿内容</label>
