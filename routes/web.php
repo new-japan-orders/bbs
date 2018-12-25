@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('threads/index');
+    return redirect()->route('threads.index');
 });
 
 // Route::view('/threads', 'threads/index')->name('threads');
@@ -20,3 +20,7 @@ Route::get('/', function () {
 
 Route::resource('threads', 'ThreadsController');
 Route::post('threads/storeEntry', 'ThreadsController@storeEntry')->name("entries.store");
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

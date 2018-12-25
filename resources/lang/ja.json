@@ -1,0 +1,17 @@
+{
+    "Name": "名前",
+    "Login": "ログイン",
+    "Logout": "ログアウト",
+    "Register": "登録",
+    "E-Mail Address": "Eメールアドレス",
+    "Password": "パスワード",
+    "Forgot Your Password?": "パスワードを忘れたら？",
+    "Remember Me": "ログイン情報を記憶する",
+    "Send Password Reset Link": "パスワードリセット用URLを送る",
+    "Confirm Password": "パスワード（確認）", 
+    "Verify Your Email Address": "Eメールアドレスを確認する",
+    "A fresh verification link has been sent to your email address.": "あなたのEメールアドレスに新しい確認URLを送りました",
+    "Before proceeding, please check your email for a verification link.": "次に進む前に、あなたのEメールアドレスをチェックしてください。",
+    "If you did not receive the email": "もしあなたがメールを受け取れないのなら、",
+    "click here to request another": "メールを再送信するために、ここを押して"
+}
