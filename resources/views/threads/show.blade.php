@@ -32,10 +32,14 @@
                 <div class="col-md-4 col-sm-4">   
                     投稿日時：{{ $entry->created_at }}
                 </div>
-                <div class="col-md-4 col-sm-4">   
-                    {{ Form::open(['url' => route('entries.destroy', ['id' => $entry->id]), 'method' => 'post'] )}}
-                        <button type="submit" class="btn btn-primary">削除</button>
-                    {{ Form::close()}}
+                <div class="col-md-4 col-sm-4"> 
+                    @auth
+                        @if ($entry->user_id == Auth::id())
+                            {{ Form::open(['url' => route('entries.destroy', ['id' => $entry->id]), 'method' => 'post'] )}}
+                                <button type="submit" class="btn btn-primary">削除</button>
+                            {{ Form::close()}}
+                        @endif
+                    @endauth
                 </div>
             </div>
             <div class="row content">
